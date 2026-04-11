@@ -1,67 +1,153 @@
 {{ define "main" }}
 <div class="reading-progress-bar" id="readingProgress"></div>
 
-<article class="single-post container">
-  <div class="post-back">
-    <a href="/blog/" class="back-link">← Powrót do bloga</a>
-  </div>
+<div class="post-wrap">
+  <div class="container">
 
-  <header class="post-header">
-    <div class="post-meta">
-      {{ with .Params.categories }}
-        {{ range . }}
-          <a href="/categories/{{ . | urlize }}/" class="category-badge">{{ . }}</a>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Strona główna</a>
+      <span class="bc-sep">/</span>
+      <a href="/blog/">Blog</a>
+      {{ with .Params.categories }}{{ range first 1 . }}
+      <span class="bc-sep">/</span>
+      <a href="/categories/{{ . | urlize }}/">{{ . }}</a>
+      {{ end }}{{ end }}
+      <span class="bc-sep">/</span>
+      <span class="bc-current">{{ .Title }}</span>
+    </nav>
+
+    <div class="post-layout">
+
+      <main class="post-main">
+        <article class="single-post">
+
+          {{ with .Params.image }}
+          <div class="post-featured-img">
+            <img src="{{ . }}" alt="{{ $.Title }}" loading="eager">
+          </div>
+          {{ end }}
+
+          <header class="post-header">
+            <div class="post-meta">
+              {{ with .Params.categories }}
+                {{ range . }}
+                  <a href="/categories/{{ . | urlize }}/" class="category-badge">{{ . }}</a>
+                {{ end }}
+              {{ end }}
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
+              <span class="reading-time">{{ .ReadingTime }} min czytania</span>
+            </div>
+            <h1>{{ .Title }}</h1>
+            {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
+          </header>
+
+          {{ partial "share.html" . }}
+
+          {{ partial "disclaimer.html" . }}
+
+          {{ if .TableOfContents }}
+          <div class="toc-box">
+            <button class="toc-toggle" aria-expanded="true">📋 Spis treści <span class="toc-arrow">▲</span></button>
+            <div class="toc-content">{{ .TableOfContents }}</div>
+          </div>
+          {{ end }}
+
+          <div class="post-content" id="postContent">
+            {{ .Content }}
+          </div>
+
+          {{ partial "share.html" . }}
+
+          <footer class="post-footer">
+            {{ with .Params.tags }}
+            <div class="post-tags">
+              <strong>Tagi:</strong>
+              {{ range . }}<a href="/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
+            </div>
+            {{ end }}
+            {{ partial "disclaimer.html" . }}
+          </footer>
+
+          <div class="author-box">
+            <div class="author-avatar">✍️</div>
+            <div class="author-info">
+              <div class="author-name">Redakcja Polak w Niemczech</div>
+              <p class="author-bio">Praktyczne informacje dla Polaków mieszkających w Niemczech – ubezpieczenia, finanse i codzienność wyjaśnione po polsku.</p>
+            </div>
+          </div>
+
+          <div class="post-nav">
+            {{ with .PrevInSection }}
+              <a href="{{ .Permalink }}" class="post-nav-link post-nav-prev">
+                <span class="nav-label">← Poprzedni artykuł</span>
+                <span class="nav-title">{{ .Title }}</span>
+              </a>
+            {{ end }}
+            {{ with .NextInSection }}
+              <a href="{{ .Permalink }}" class="post-nav-link post-nav-next">
+                <span class="nav-label">Następny artykuł →</span>
+                <span class="nav-title">{{ .Title }}</span>
+              </a>
+            {{ end }}
+          </div>
+
+        </article>
+
+        {{ $related := .Site.RegularPages.Related . | first 3 }}
+        {{ with $related }}
+        <section class="related-posts">
+          <h3 class="related-title">Powiązane artykuły</h3>
+          <div class="related-grid">
+            {{ range . }}
+            <a href="{{ .Permalink }}" class="related-card">
+              {{ with .Params.image }}
+              <div class="related-img"><img src="{{ . }}" alt="{{ $.Title }}" loading="lazy"></div>
+              {{ else }}
+              <div class="related-img related-img-placeholder">
+                {{ with .Params.categories }}{{ range first 1 . }}<span>{{ . }}</span>{{ end }}{{ end }}
+              </div>
+              {{ end }}
+              <div class="related-card-body">
+                {{ with .Params.categories }}{{ range first 1 . }}<span class="category-badge">{{ . }}</span>{{ end }}{{ end }}
+                <h4>{{ .Title }}</h4>
+                <span class="related-date">{{ .Date.Format "02.01.2006" }}</span>
+              </div>
+            </a>
+            {{ end }}
+          </div>
+        </section>
         {{ end }}
-      {{ end }}
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02.01.2006" }}</time>
-      <span class="reading-time">{{ .ReadingTime }} min czytania</span>
+
+      </main>
+
+      {{ partial "sidebar.html" . }}
+
     </div>
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
-  </header>
-
-  {{ partial "disclaimer.html" . }}
-
-  <div class="post-content" id="postContent">
-    {{ .Content }}
   </div>
-
-  <footer class="post-footer">
-    {{ with .Params.tags }}
-    <div class="post-tags">
-      <strong>Tagi:</strong>
-      {{ range . }}<a href="/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
-    </div>
-    {{ end }}
-    {{ partial "disclaimer.html" . }}
-
-    <div class="post-nav">
-      {{ with .PrevInSection }}
-        <a href="{{ .Permalink }}" class="post-nav-link post-nav-prev">
-          <span class="nav-label">← Poprzedni</span>
-          <span class="nav-title">{{ .Title }}</span>
-        </a>
-      {{ end }}
-      {{ with .NextInSection }}
-        <a href="{{ .Permalink }}" class="post-nav-link post-nav-next">
-          <span class="nav-label">Następny →</span>
-          <span class="nav-title">{{ .Title }}</span>
-        </a>
-      {{ end }}
-    </div>
-  </footer>
-</article>
+</div>
 
 <script>
-  const bar = document.getElementById('readingProgress');
-  const content = document.getElementById('postContent');
-  window.addEventListener('scroll', () => {
+(function(){
+  var bar = document.getElementById('readingProgress');
+  var content = document.getElementById('postContent');
+  window.addEventListener('scroll', function(){
     if (!content) return;
-    const rect = content.getBoundingClientRect();
-    const total = content.offsetHeight - window.innerHeight;
-    const scrolled = -rect.top;
-    const pct = Math.min(Math.max((scrolled / total) * 100, 0), 100);
+    var rect = content.getBoundingClientRect();
+    var total = content.offsetHeight - window.innerHeight;
+    var pct = Math.min(Math.max((-rect.top / total) * 100, 0), 100);
     bar.style.width = pct + '%';
   });
+  var toggle = document.querySelector('.toc-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', function(){
+      var box = document.querySelector('.toc-content');
+      var arrow = document.querySelector('.toc-arrow');
+      var open = box.style.display !== 'none';
+      box.style.display = open ? 'none' : 'block';
+      arrow.textContent = open ? '▼' : '▲';
+      toggle.setAttribute('aria-expanded', !open);
+    });
+  }
+})();
 </script>
 {{ end }}

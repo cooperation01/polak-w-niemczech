@@ -1,16 +1,26 @@
 {{ define "main" }}
-<div class="container page-list">
-  <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
-  </header>
+<div class="container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Strona główna</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">{{ .Title }}</span>
+  </nav>
 
-  <div class="posts-grid">
-    {{ range .Pages }}
-      {{ partial "summary.html" . }}
-    {{ end }}
+  <div class="post-layout">
+    <main class="post-main">
+      <header class="page-header">
+        <h1>{{ .Title }}</h1>
+        {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
+      </header>
+      <div class="posts-grid">
+        {{ range .Pages }}
+          {{ partial "summary.html" . }}
+        {{ end }}
+      </div>
+      {{ template "_internal/pagination.html" . }}
+    </main>
+
+    {{ partial "sidebar.html" . }}
   </div>
-
-  {{ template "_internal/pagination.html" . }}
 </div>
 {{ end }}

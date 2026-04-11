@@ -1,0 +1,44 @@
+<aside class="sidebar">
+
+  <div class="widget widget-categories">
+    <h4 class="widget-title">Kategorie</h4>
+    <ul class="widget-list">
+      <li><a href="/categories/versicherungen/">🛡️ Versicherungen</a></li>
+      <li><a href="/categories/finanzen/">💶 Finanzen</a></li>
+      <li><a href="/categories/alltag/">🏠 Alltag</a></li>
+    </ul>
+  </div>
+
+  <div class="widget widget-recent">
+    <h4 class="widget-title">Najnowsze artykuły</h4>
+    <ul class="widget-recent-list">
+      {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
+      <li class="recent-post-item">
+        <a href="{{ .Permalink }}">
+          <span class="recent-title">{{ .Title }}</span>
+          <time class="recent-date">{{ .Date.Format "02.01.2006" }}</time>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+
+  {{ $tags := .Site.Taxonomies.tags }}
+  {{ with $tags }}
+  <div class="widget widget-tags">
+    <h4 class="widget-title">Tagi</h4>
+    <div class="tags-cloud">
+      {{ range $tags }}
+        <a href="{{ .Page.Permalink }}" class="tag">{{ .Page.Title }}</a>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="widget widget-info">
+    <h4 class="widget-title">O stronie</h4>
+    <p>Praktyczny przewodnik dla Polaków w Niemczech. Wyjaśniamy zawiłości systemu – ubezpieczenia, finanse, urzędy.</p>
+    <a href="/blog/" class="btn btn-primary" style="margin-top:1rem;display:block;text-align:center;">Wszystkie artykuły</a>
+  </div>
+
+</aside>

@@ -1,0 +1,21 @@
+<div class="share-box">
+  <span class="share-label">Udostępnij artykuł:</span>
+  <div class="share-buttons">
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}"
+       target="_blank" rel="noopener noreferrer" class="share-btn share-fb">
+      <span class="share-icon">f</span> Facebook
+    </a>
+    <a href="https://wa.me/?text={{ .Title | urlquery }}%20{{ .Permalink }}"
+       target="_blank" rel="noopener noreferrer" class="share-btn share-wa">
+      <span class="share-icon">w</span> WhatsApp
+    </a>
+    <a href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink }}"
+       target="_blank" rel="noopener noreferrer" class="share-btn share-tw">
+      <span class="share-icon">𝕏</span> Twitter
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink }}"
+       target="_blank" rel="noopener noreferrer" class="share-btn share-li">
+      <span class="share-icon">in</span> LinkedIn
+    </a>
+  </div>
+</div>
