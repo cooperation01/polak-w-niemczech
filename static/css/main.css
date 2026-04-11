@@ -437,3 +437,208 @@ a.category-badge:hover {
   .posts-grid { grid-template-columns: 1fr; }
   .category-cards { grid-template-columns: 1fr; }
 }
+
+
+/* === READING PROGRESS BAR === */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: #c0392b;
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* === BACK TO BLOG LINK === */
+.post-back {
+  padding: 1.25rem 0 0;
+}
+.back-link {
+  color: #777;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.back-link:hover {
+  color: #c0392b;
+  text-decoration: none;
+}
+
+/* === READING TIME === */
+.reading-time {
+  color: #999;
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+/* === IMPROVED POST CONTENT TYPOGRAPHY === */
+.post-content {
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: #2c2c3e;
+}
+.post-content h2 {
+  font-size: 1.55rem;
+  margin: 2.5rem 0 0.85rem;
+  color: #1a1a2e;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid #f0f0f0;
+  line-height: 1.3;
+}
+.post-content h3 {
+  font-size: 1.22rem;
+  margin: 2rem 0 0.6rem;
+  color: #1a1a2e;
+  padding-left: 0.75rem;
+  border-left: 3px solid #c0392b;
+  line-height: 1.35;
+}
+.post-content h4 {
+  font-size: 1.05rem;
+  margin: 1.5rem 0 0.4rem;
+  color: #333;
+  font-weight: 700;
+}
+.post-content p {
+  margin-bottom: 1.4rem;
+}
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1.4rem 1.5rem;
+  padding: 0;
+}
+.post-content li {
+  margin-bottom: 0.55rem;
+  padding-left: 0.25rem;
+}
+.post-content ul li::marker {
+  color: #c0392b;
+}
+.post-content strong {
+  color: #1a1a2e;
+  font-weight: 700;
+}
+
+/* === BLOCKQUOTE === */
+.post-content blockquote {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.5rem;
+  border-left: 4px solid #c0392b;
+  background: #fff8f7;
+  border-radius: 0 8px 8px 0;
+  color: #444;
+  font-style: italic;
+  font-size: 1.05rem;
+}
+.post-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* === CODE BLOCKS === */
+.post-content code {
+  background: #f4f4f8;
+  color: #c0392b;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+.post-content pre {
+  background: #1a1a2e;
+  color: #e8e8f0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.post-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* === TABLES === */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  display: block;
+}
+.post-content th {
+  background: #1a1a2e;
+  color: white;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+.post-content td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #333;
+}
+.post-content tr:nth-child(even) td {
+  background: #f8f9fa;
+}
+.post-content tr:hover td {
+  background: #fff0ee;
+}
+
+/* === POST NAVIGATION (prev/next) === */
+.post-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  max-width: 48%;
+  transition: all 0.2s;
+  color: #333;
+  flex: 1;
+}
+.post-nav-link:hover {
+  border-color: #c0392b;
+  background: #fff8f7;
+  text-decoration: none;
+  color: #1a1a2e;
+}
+.post-nav-next {
+  text-align: right;
+  margin-left: auto;
+}
+.nav-label {
+  font-size: 0.78rem;
+  color: #c0392b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.nav-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  line-height: 1.4;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .post-content { font-size: 1rem; line-height: 1.75; }
+  .post-nav-link { max-width: 100%; }
+  .post-content h2 { font-size: 1.35rem; }
+  .post-content h3 { font-size: 1.12rem; }
+}
