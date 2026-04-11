@@ -1,0 +1,52 @@
+baseURL = "https://polak-w-niemczech.netlify.app/"
+languageCode = "pl"
+defaultContentLanguage = "pl"
+title = "Polak w Niemczech"
+paginate = 10
+summaryLength = 60
+
+[params]
+  description = "Praktyczne informacje dla Polaków mieszkających w Niemczech. Ubezpieczenia, finanse, codzienne życie."
+  author = "Redakcja Polak w Niemczech"
+  disclaimer = "Artykuł ma charakter informacyjny. Warunki umów mogą się różnić. Skonsultuj się ze specjalistą przed podjęciem decyzji."
+  cookieBannerText = "Ta strona używa tylko jednego technicznego pliku cookie (zapamiętanie zgody). Nie stosujemy śledzenia ani reklam."
+  footerText = "© 2025 Polak w Niemczech. Wszelkie treści mają charakter wyłącznie informacyjny."
+
+[menu]
+  [[menu.main]]
+    name = "Strona główna"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 2
+  [[menu.main]]
+    name = "Versicherungen"
+    url = "/categories/versicherungen/"
+    weight = 3
+  [[menu.main]]
+    name = "Finanzen"
+    url = "/categories/finanzen/"
+    weight = 4
+  [[menu.main]]
+    name = "Alltag"
+    url = "/categories/alltag/"
+    weight = 5
+  [[menu.main]]
+    name = "Impressum"
+    url = "/impressum/"
+    weight = 6
+  [[menu.main]]
+    name = "Datenschutz"
+    url = "/datenschutz/"
+    weight = 7
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false

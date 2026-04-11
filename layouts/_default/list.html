@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="container page-list">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
+  </header>
+
+  <div class="posts-grid">
+    {{ range .Pages }}
+      {{ partial "summary.html" . }}
+    {{ end }}
+  </div>
+
+  {{ template "_internal/pagination.html" . }}
+</div>
+{{ end }}

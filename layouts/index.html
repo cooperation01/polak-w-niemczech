@@ -1,0 +1,47 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="container">
+    <h1>🇵🇱 Polak w Niemczech</h1>
+    <p class="hero-subtitle">Praktyczny przewodnik po życiu w Niemczech: ubezpieczenia, finanse, urzędy i codzienność – po polsku.</p>
+    <a href="/blog/" class="btn btn-hero">Przeglądaj artykuły →</a>
+  </div>
+</section>
+
+<section class="categories-overview">
+  <div class="container">
+    <h2>Co znajdziesz na tej stronie?</h2>
+    <div class="category-cards">
+      <a href="/categories/versicherungen/" class="category-card">
+        <span class="cat-icon">🛡️</span>
+        <h3>Versicherungen</h3>
+        <p>Krankenversicherung, Kfz, Haftpflicht, Hausrat i wiele więcej. Wyjaśniamy, jak działają ubezpieczenia w Niemczech.</p>
+      </a>
+      <a href="/categories/finanzen/" class="category-card">
+        <span class="cat-icon">💶</span>
+        <h3>Finanzen</h3>
+        <p>Konto bankowe, podatki, Kindergeld, Rente. Ogólne wskazówki finansowe dla Polaków w Niemczech.</p>
+      </a>
+      <a href="/categories/alltag/" class="category-card">
+        <span class="cat-icon">🏠</span>
+        <h3>Alltag</h3>
+        <p>Anmeldung, Führerschein, Kita, urzędy. Wszystko o codziennym życiu w Niemczech.</p>
+      </a>
+    </div>
+    <p class="categories-disclaimer">⚠️ Wszystkie treści mają charakter wyłącznie informacyjny. Warunki indywidualnych umów mogą się różnić.</p>
+  </div>
+</section>
+
+<section class="latest-posts">
+  <div class="container">
+    <h2>Najnowsze artykuły</h2>
+    <div class="posts-grid">
+      {{ range first 6 (where .Site.RegularPages "Section" "blog") }}
+        {{ partial "summary.html" . }}
+      {{ end }}
+    </div>
+    <div class="more-posts">
+      <a href="/blog/" class="btn btn-secondary">Wszystkie artykuły →</a>
+    </div>
+  </div>
+</section>
+{{ end }}

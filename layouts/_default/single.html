@@ -1,0 +1,32 @@
+{{ define "main" }}
+<article class="single-post container">
+  <header class="post-header">
+    <div class="post-meta">
+      {{ with .Params.categories }}
+        {{ range . }}
+          <a href="/categories/{{ . | urlize }}/" class="category-badge">{{ . }}</a>
+        {{ end }}
+      {{ end }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    </div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ partial "disclaimer.html" . }}
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  <footer class="post-footer">
+    {{ with .Params.tags }}
+    <div class="post-tags">
+      <strong>Tagi:</strong>
+      {{ range . }}<a href="/tags/{{ . | urlize }}/" class="tag">{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+    {{ partial "disclaimer.html" . }}
+  </footer>
+</article>
+{{ end }}
