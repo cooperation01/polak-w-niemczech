@@ -5,6 +5,7 @@
 [build.environment]
   HUGO_VERSION = "0.160.1"
   HUGO_ENV = "production"
+  PYTHON_VERSION = "skip"
 
 [[redirects]]
   from = "/feed"
