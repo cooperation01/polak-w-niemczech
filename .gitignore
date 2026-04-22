@@ -5,3 +5,20 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.tmp
+
+# Secrets - NIEMALS committen!
+.env
+scripts/.env
+*.env
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# IDE
+.vscode/
+*.code-workspace
+
+# Auto-generiert (Social Media Pipeline)
+last_post.json

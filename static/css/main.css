@@ -157,9 +157,10 @@ a:hover { text-decoration: underline; }
 .latest-posts { padding: 3.5rem 0; }
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
+  align-items: stretch;
 }
 .more-posts { text-align: center; }
 
@@ -173,6 +174,7 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 1px 6px rgba(0,0,0,0.04);
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .post-card:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
@@ -429,6 +431,11 @@ a.category-badge:hover {
   .post-header h1 { font-size: 1.6rem; }
   .cookie-content { flex-direction: column; align-items: flex-start; }
   .single-post { padding: 1.5rem 1rem; }
+  .posts-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .post-card { padding: 1.1rem; }
+  .post-card-img-link { height: 160px; }
+  .post-card-img-placeholder { height: 160px; }
+  .post-card-title { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
@@ -436,6 +443,8 @@ a.category-badge:hover {
   .hero h1 { font-size: 1.6rem; }
   .posts-grid { grid-template-columns: 1fr; }
   .category-cards { grid-template-columns: 1fr; }
+  .post-card { padding: 1rem; }
+  .post-card-summary { font-size: 0.88rem; }
 }
 
 

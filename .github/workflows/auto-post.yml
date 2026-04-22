@@ -1,0 +1,53 @@
+name: Auto-Post
+
+on:
+  schedule:
+    - cron: '0 7 * * *'   # täglich 07:00 UTC = 09:00 Berlin
+  workflow_dispatch:        # manuell auslösbar (GitHub → Actions → Run workflow)
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Pakete installieren
+        run: pip install -r scripts/requirements.txt
+
+      - name: Artikel generieren
+        run: python scripts/generate_post.py
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          SUPABASE_URL:     ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY:     ${{ secrets.SUPABASE_KEY }}
+          GH_TOKEN:         ${{ secrets.GH_TOKEN }}
+          GITHUB_REPO:      cooperation01/polak-w-niemczech
+
+      - name: Git konfigurieren
+        run: |
+          git config user.email "bot@polak-w-niemczech.de"
+          git config user.name "Auto-Post Bot"
+
+      - name: Warten auf Netlify Deploy
+        run: sleep 120
+
+      - name: Auf Meta posten (Facebook, Instagram, Threads)
+        if: ${{ hashFiles('last_post.json') != '' }}
+        run: python scripts/post_to_meta.py
+        env:
+          META_SYSTEM_USER_TOKEN:  ${{ secrets.META_SYSTEM_USER_TOKEN }}
+          FACEBOOK_PAGE_ID:        ${{ secrets.FACEBOOK_PAGE_ID }}
+          INSTAGRAM_USER_ID:       ${{ secrets.INSTAGRAM_USER_ID }}
+          THREADS_USER_ID:         ${{ secrets.THREADS_USER_ID }}
+          THREADS_ACCESS_TOKEN:    ${{ secrets.THREADS_ACCESS_TOKEN }}
+          META_DEFAULT_IMAGE_URL:  ${{ secrets.META_DEFAULT_IMAGE_URL }}

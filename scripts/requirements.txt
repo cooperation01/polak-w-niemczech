@@ -1,0 +1,7 @@
+python-telegram-bot==21.3
+supabase>=2.5.0,<2.7.0
+openai>=1.30.0
+python-slugify>=8.0.4
+python-dotenv>=1.0.1
+PyGithub>=2.3.0
+requests>=2.32.0

@@ -20,7 +20,7 @@
     <h2 class="post-card-title">
       <a href="{{ .Permalink }}">{{ .Title }}</a>
     </h2>
-    <p class="post-card-summary">{{ .Summary }}</p>
+    <p class="post-card-summary">{{ .Summary | plainify | truncate 180 "…" }}</p>
     <a href="{{ .Permalink }}" class="read-more">Czytaj dalej →</a>
   </div>
 </article>
