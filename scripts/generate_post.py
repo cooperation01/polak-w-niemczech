@@ -177,6 +177,9 @@ def push_to_github(fpath: Path, title: str) -> None:
 
 
 def main():
+    # 0. Stuck "generating" Topics zurücksetzen (z.B. nach Absturz)
+    supabase.table("topics").update({"status": "pending"}).eq("status", "generating").execute()
+
     # 1. Nächstes pending Topic holen
     res = (
         supabase.table("topics")
@@ -212,14 +215,14 @@ def main():
         # 5. Datei speichern
         fpath, slug = save_markdown(row, article)
 
-        # 6. In Supabase articles-Tabelle speichern
-        supabase.table("articles").insert({
+        # 6. In Supabase articles-Tabelle speichern (upsert verhindert Duplikat-Fehler)
+        supabase.table("articles").upsert({
             "topic_id":   row["id"],
             "title":      article["title"],
             "slug":       slug,
             "content_md": fpath.read_text(encoding="utf-8"),
             "status":     "generated",
-        }).execute()
+        }, on_conflict="slug").execute()
 
         # 7. Push (nur wenn GH_TOKEN gesetzt)
         push_to_github(fpath, article["title"])
