@@ -157,7 +157,7 @@ author: "Redakcja Polak w Niemczech"
 
 
 def push_to_github(fpath: Path, title: str) -> None:
-    """Committet und pusht die neue Datei via GitHub API (nur in Actions)."""
+    """Committet und pusht die neue Datei via GitHub API (nur wenn GH_TOKEN gesetzt)."""
     if not GH_TOKEN:
         print("[SKIP] Kein GH_TOKEN – kein Push (lokal)")
         return
@@ -166,14 +166,28 @@ def push_to_github(fpath: Path, title: str) -> None:
     g    = Github(GH_TOKEN)
     repo = g.get_repo(GITHUB_REPO)
     path = f"content/blog/{fpath.name}"
+    content = fpath.read_text(encoding="utf-8")
 
-    repo.create_file(
-        path    = path,
-        message = f"Auto-Post: {title}",
-        content = fpath.read_text(encoding="utf-8"),
-        branch  = "main",
-    )
-    print(f"[OK] Gepusht: {path}")
+    try:
+        # Datei existiert bereits → update
+        existing = repo.get_contents(path, ref="main")
+        repo.update_file(
+            path    = path,
+            message = f"Auto-Post (update): {title}",
+            content = content,
+            sha     = existing.sha,
+            branch  = "main",
+        )
+        print(f"[OK] Aktualisiert: {path}")
+    except Exception:
+        # Datei neu → create
+        repo.create_file(
+            path    = path,
+            message = f"Auto-Post: {title}",
+            content = content,
+            branch  = "main",
+        )
+        print(f"[OK] Gepusht: {path}")
 
 
 def main():
