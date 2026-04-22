@@ -10,7 +10,7 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:locale" content="pl_PL">
-<meta property="og:image" content="{{ .Site.BaseURL }}{{ trimPrefix "/" .Site.Params.ogImage }}">
+<meta property="og:image" content="{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Site.Params.ogImage }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 {{ if .IsPage }}
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
 <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ trimPrefix "/" .Site.Params.ogImage }}">
+<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ strings.TrimPrefix "/" .Site.Params.ogImage }}">
 
 <!-- Facebook Domain Verification -->
 {{ with .Site.Params.facebookDomainVerification }}<meta name="facebook-domain-verification" content="{{ . }}">{{ end }}

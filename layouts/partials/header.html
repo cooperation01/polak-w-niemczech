@@ -9,7 +9,7 @@
       <ul class="nav-list">
         {{ range .Site.Menus.main }}
         <li class="nav-item">
-          <a href="{{ .URL }}" class="nav-link {{ if eq $.RelPermalink .URL }}active{{ end }}">
+          <a href="{{ .URL | absURL }}" class="nav-link {{ if or (eq $.RelPermalink .URL) (eq $.Permalink (.URL | absURL)) }}active{{ end }}">
             {{ .Name }}
           </a>
         </li>
