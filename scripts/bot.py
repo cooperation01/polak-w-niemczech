@@ -168,9 +168,9 @@ async def cmd_now(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     )
     if result.returncode == 0:
         await update.message.reply_text(
-            f"Artikel generiert!\n"
+            f"Artikel generiert und gepusht!\n"
             f"Thema: {topic}\n"
-            f"Pruefen unter localhost:1313"
+            f"Live in ~2 Min: https://polak-w-niemczech.netlify.app/blog/"
         )
     else:
         err = result.stderr[-400:] if result.stderr else "Unbekannter Fehler"
