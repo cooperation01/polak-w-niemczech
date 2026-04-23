@@ -199,6 +199,17 @@ async def cmd_status(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("\n".join(lines))
 
 
+async def error_handler(update: object, ctx: ContextTypes.DEFAULT_TYPE) -> None:
+    from telegram.error import Conflict, NetworkError
+    if isinstance(ctx.error, Conflict):
+        logging.warning("409 Conflict: Zweite Bot-Instanz laeuft. Railway-Instanz beenden oder lokalen Start stoppen.")
+        return
+    if isinstance(ctx.error, NetworkError):
+        logging.warning("Netzwerkfehler (wird ignoriert): %s", ctx.error)
+        return
+    logging.error("Unbehandelter Fehler: %s", ctx.error, exc_info=ctx.error)
+
+
 async def cmd_delete(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if not authorized(update):
         return
@@ -234,6 +245,7 @@ def main():
     app.add_handler(CommandHandler("now",    cmd_now))
     app.add_handler(CommandHandler("status", cmd_status))
     app.add_handler(CommandHandler("delete", cmd_delete))
+    app.add_error_handler(error_handler)
 
     print("Bot laeuft... (Ctrl+C zum Stoppen)")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
